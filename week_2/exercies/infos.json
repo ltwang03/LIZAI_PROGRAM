@@ -1,0 +1,16 @@
+{
+  "protocol": "https:",
+  "slashes": true,
+  "auth": null,
+  "host": "portal.huflit.edu.vn",
+  "port": null,
+  "hostname": "portal.huflit.edu.vn",
+  "hash": null,
+  "search": "?name=Quang",
+  "query": {
+    "name": "Quang"
+  },
+  "pathname": "/path",
+  "path": "/path?name=Quang",
+  "href": "https://portal.huflit.edu.vn/path?name=Quang"
+}
