@@ -1,0 +1,28 @@
+{
+  "products": [
+    {
+      "id": 4,
+      "name": "Product 4",
+      "description": "This is product 4",
+      "price": 400
+    },
+    {
+      "id": 5,
+      "name": "Product 5",
+      "description": "This is product 5",
+      "price": 500
+    },
+    {
+      "id": 6,
+      "name": "Product 6",
+      "description": "This is product 6",
+      "price": 600
+    },
+    {
+      "name": "Thanh Quang",
+      "description": "This is baden",
+      "price": 700,
+      "id": 8
+    }
+  ]
+}
