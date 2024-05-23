@@ -97,9 +97,9 @@ http://localhost:3000
   "statusCode": 200,
   "metadata": {
     "id": 6,
-    "name": "New Product",
-    "description": "This is a new product",
-    "price": 14.99
+    "name": "Updated Product",
+    "description": "This is an updated product",
+    "price": 16.99
   }
 }
 ```
