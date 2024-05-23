@@ -3,9 +3,11 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const app = express();
 
-app.use(morgan("dev"));
-app.use(bodyParser.json());
+// use third patty middleware
+app.use(morgan("dev")); // ghi logs
+app.use(bodyParser.json()); // parse body
 
+// init route
 app.use("/", require("./routes/index"));
 
 // handle error
@@ -17,14 +19,12 @@ app.use((req, res, next) => {
 
 app.use((err, req, res, next) => {
   const statusCode = err.status || 500;
-  if (err) {
-    console.log(err.stack);
-    return res.status(statusCode).json({
-      status: "error",
-      code: statusCode,
-      message: err.message || "Internal Server Error",
-    });
-  }
+  console.log(err.stack);
+  return res.status(statusCode).json({
+    status: "error",
+    code: statusCode,
+    message: err.message || "Internal Server Error",
+  });
 });
 
 module.exports = app;

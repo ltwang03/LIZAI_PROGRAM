@@ -14,9 +14,9 @@
     },
     {
       "id": 6,
-      "name": "Product 6",
-      "description": "This is product 6",
-      "price": 600
+      "name": "New Product",
+      "description": "This is a new product",
+      "price": 14.99
     },
     {
       "name": "Thanh Quang",
