@@ -9,6 +9,10 @@ After the installation is complete, you can start the application by running the
 ```shell
 npm run dev
 ```
+**Endpoint** <br>
+```text
+http://localhost:3000
+```
 
 # Product API
 
