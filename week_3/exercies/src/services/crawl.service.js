@@ -19,11 +19,10 @@ class CrawlService {
       const linkHref = data.getAttribute("href");
       const linkSrc = data.getAttribute("src");
       const link = linkHref || linkSrc;
-      if (!link || link.startsWith("javascript:")) {
-        continue;
+      if (validateUrl(link)) {
+        const formatLink = toAbsoluteUrl(checkUrl.origin, link);
+        links.push(formatLink);
       }
-      const formatLink = toAbsoluteUrl(checkUrl.origin, link);
-      links.push(formatLink);
     }
     return {
       links,
@@ -32,6 +31,14 @@ class CrawlService {
     };
   }
 }
+
+const validateUrl = (urlString) => {
+  if (urlString && !urlString.startsWith("javascript")) {
+    return true;
+  }
+  return false;
+};
+
 const toAbsoluteUrl = (base, relative) => {
   return url.resolve(base, relative);
 };
