@@ -4,7 +4,6 @@ const url = require("url");
 
 class CrawlService {
   async crawlDataFromLink(urlString) {
-    console.log(urlString);
     const checkUrl = new URL(urlString);
     if (!urlString || !checkUrl || typeof urlString !== "string") {
       throw new NotFoundError("Url Not Found");
@@ -19,8 +18,8 @@ class CrawlService {
       const linkHref = data.getAttribute("href");
       const linkSrc = data.getAttribute("src");
       const link = linkHref || linkSrc;
-      if (validateUrl(link)) {
-        const formatLink = toAbsoluteUrl(checkUrl.origin, link);
+      const formatLink = toAbsoluteUrl(String(checkUrl.origin), String(link));
+      if (validateUrl(formatLink)) {
         links.push(formatLink);
       }
     }
@@ -33,7 +32,11 @@ class CrawlService {
 }
 
 const validateUrl = (urlString) => {
-  if (urlString && !urlString.startsWith("javascript")) {
+  const partUrl = url.parse(urlString);
+  if (
+    String(partUrl.protocol) === "https:" ||
+    String(partUrl.protocol) === "http:"
+  ) {
     return true;
   }
   return false;
