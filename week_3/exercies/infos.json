@@ -1,0 +1,16 @@
+{
+  "extension": ".mp4",
+  "filename": "bunny.mp4",
+  "protocol": "hps:",
+  "slashes": true,
+  "auth": null,
+  "host": "webcoban.vn",
+  "port": null,
+  "hostname": "webcoban.vn",
+  "hash": null,
+  "search": null,
+  "query": null,
+  "pathname": "/file/bunny.mp4",
+  "path": "/file/bunny.mp4",
+  "href": "hps://webcoban.vn/file/bunny.mp4"
+}

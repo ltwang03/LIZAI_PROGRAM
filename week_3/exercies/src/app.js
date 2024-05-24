@@ -6,6 +6,10 @@ const app = express();
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 
+// init route
+
+app.use("/", require("./routes/index"));
+
 // handle error
 app.use((req, res, next) => {
   const error = new Error("Not found");
