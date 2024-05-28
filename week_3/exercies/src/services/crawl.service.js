@@ -12,7 +12,7 @@ class CrawlService {
     const links = [];
     const document = await convertTextToHtml(text);
     const getLinks = document.querySelectorAll(
-      "img, a, video source, audio source, script, video"
+      "img, a, video source, audio source, script, video, iframe"
     );
     for (let data of getLinks) {
       const linkHref = data.getAttribute("href");
@@ -41,7 +41,6 @@ const validateUrl = (urlString) => {
   }
   return false;
 };
-
 const toAbsoluteUrl = (base, relative) => {
   return url.resolve(base, relative);
 };
