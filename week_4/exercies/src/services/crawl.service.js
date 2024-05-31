@@ -15,7 +15,7 @@ class CrawlService {
     await page.click(".search-btn");
     await page.waitForSelector(".view-content");
     const startTime = Date.now();
-    const fiveMinutes = 1 * 60 * 1000;
+    const fiveMinutes = 5 * 60 * 1000;
     let links = [];
     let numberPage;
     while (Date.now() - startTime < fiveMinutes) {
