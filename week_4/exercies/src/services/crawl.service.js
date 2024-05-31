@@ -1,35 +1,65 @@
-const { createTask } = require("../models/repositories/task.repository");
+const {
+  createTask,
+  createMultipleTasks,
+} = require("../models/repositories/task.repository");
 const puppeteer = require("puppeteer");
 const { NotFoundError } = require("../core/error.response");
 
 class CrawlService {
   async crawlUrl({ url, task_id }) {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
-    await page.goto(`${url}/search?s=obesity`);
-    let numberPage = 0;
+    await page.goto(url);
+    await page.click("#btn-search");
+    await page.type(".search-input", "obesity");
+    await page.click(".search-btn");
+    await page.waitForSelector(".view-content");
+    const startTime = Date.now();
+    const fiveMinutes = 1 * 60 * 1000;
     let links = [];
-
-    while (true) {
-      numberPage += 1;
-
-      const nextPageLink = `${url}/search?s=obesity&page=${numberPage}`;
-
-      const navigationResult = await page.goto(nextPageLink);
-
-      if (navigationResult.status() !== 200) {
-        break;
+    let numberPage;
+    while (Date.now() - startTime < fiveMinutes) {
+      numberPage = await page.$eval(
+        "#main-content > div > div > div > nav > ul > li.pager__item.is-active.active>a",
+        (el) => {
+          const textContent = el.textContent;
+          const match = textContent.match(/\d+/); // match digits
+          return match ? Number(match[0]) : null;
+        }
+      );
+      const articleUrls = await page.evaluate(() => {
+        return Array.from(
+          document.querySelectorAll(".view-content>div>div:nth-child(2)>a")
+        ).map((a) => a.href);
+      });
+      for (const url of articleUrls) {
+        links.push({ url, task_id, page: numberPage });
       }
-      return links;
+      const nextPageButton = await page.$(
+        "#main-content > div > div > div > nav > ul > li.pager__item.pager__item--next > a"
+      );
+      if (nextPageButton) {
+        await nextPageButton.click();
+        await page.waitForNavigation();
+      } else {
+        break;
+        throw new NotFoundError("Button next page not found");
+      }
     }
-
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        browser.close();
-        resolve("Successfully completed after 5 minutes");
-      }, 5); // 5 minutes
-    });
+    await browser.close();
+    const tasks = removeDuplicateUrls(links);
+    return await createMultipleTasks(tasks);
   }
+}
+function removeDuplicateUrls(arr) {
+  const uniqueUrls = new Set();
+  return arr.filter((item) => {
+    if (!uniqueUrls.has(item.url)) {
+      uniqueUrls.add(item.url);
+      return true;
+    }
+    return false;
+  });
 }
 
 module.exports = new CrawlService();
