@@ -21,19 +21,23 @@ const Link = sequelize.define("Link", {
     allowNull: true,
   },
   description: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT("long"),
     allowNull: true,
   },
   text: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT("long"),
     allowNull: true,
   },
   html: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT("long"),
     allowNull: true,
   },
   date: {
     type: DataTypes.DATE,
+    allowNull: true,
+  },
+  childUrls: {
+    type: DataTypes.JSON,
     allowNull: true,
   },
 });
