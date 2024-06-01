@@ -9,11 +9,13 @@ const {
   updateLink,
   getLinkByTaskId,
 } = require("../models/repositories/link.repository");
-const url = require("url");
 
 class CrawlService {
   async crawlUrl({ url, task_id }) {
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      executablePath: "/usr/bin/google-chrome",
+    });
     const page = await browser.newPage();
     await page.goto(url);
     await page.click("#btn-search");
@@ -66,7 +68,10 @@ class CrawlService {
       throw new NotFoundError("Task not found");
     }
 
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      executablePath: "/usr/bin/google-chrome",
+    });
 
     for (const task of tasks.list) {
       const page = await browser.newPage();

@@ -1,9 +1,9 @@
 const { StatusCode, ReasonStatusCode } = require("../utils/httpStatus");
 
 class SuccessResponse {
-  constructor({ status = true, message = "" }) {
+  constructor({ status = true, message }) {
     this.status = status;
-    this.message = message;
+    this.message = !message ? ReasonStatusCode.OK : message;
   }
   send(res) {
     res.status(StatusCode.OK).json(this);
@@ -20,5 +20,4 @@ class OKResponse {
   }
 }
 
-module.exports = SuccessResponse;
-module.exports = OKResponse;
+module.exports = { SuccessResponse, OKResponse };

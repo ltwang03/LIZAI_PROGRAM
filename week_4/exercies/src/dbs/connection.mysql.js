@@ -7,6 +7,7 @@ const sequelize = new Sequelize(
   database.password,
   {
     host: database.host,
+    port: database.port_db,
     dialect: "mysql",
     pool: {
       max: 5,
