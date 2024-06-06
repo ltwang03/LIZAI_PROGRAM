@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  database:
+    image: mysql:8.4.0
+    hostname: database
+    ports:
+      - "3306:3306"
+    env_file:
+      - .env
+    restart: always
+    volumes:
+      - ./volume/data:/var/lib/mysql
+      - ./volume/logs:/var/log/mysql

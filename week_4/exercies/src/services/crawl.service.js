@@ -58,7 +58,7 @@ class CrawlService {
     const tasks = removeDuplicateUrls(links);
     await createMultipleTasks(tasks);
     await createMultipleLinks(tasks);
-    return "Successfully crawled!";
+    return "Successfully craw6led!";
   }
 
   async crawlDataFromUrl({ task_id, page, page_size = 10 }) {
@@ -119,9 +119,7 @@ class CrawlService {
               ) {
                 uniqueLinks.add(absoluteUrl.toString()); // Lưu URL dưới dạng chuỗi
               }
-            } catch (err) {
-              // Xử lý lỗi nếu URL không hợp lệ (ví dụ: ghi log)
-            }
+            } catch (err) {}
           });
 
         return Array.from(uniqueLinks);
