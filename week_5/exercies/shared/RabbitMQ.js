@@ -29,7 +29,10 @@ class RabbitMQ {
   }
   async sendMessageToQueue(queueName, message, channel) {
     try {
-      await channel.sendToQueue(queueName, Buffer.from(message));
+      await channel.sendToQueue(
+        queueName,
+        Buffer.from(JSON.stringify(message))
+      );
       console.log("Send Message Success");
       return true;
     } catch (e) {

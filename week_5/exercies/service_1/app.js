@@ -12,7 +12,7 @@ const runService = async () => {
     const data = readFileData();
     data.map((item) => {
       console.log(item);
-      RabbitMQ.sendMessageToQueue(queueName, JSON.stringify(item), channel);
+      RabbitMQ.sendMessageToQueue(queueName, item, channel);
     });
     setTimeout(function () {
       connection.close();

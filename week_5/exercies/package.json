@@ -12,7 +12,10 @@
     "amqplib": "^0.10.4",
     "dotenv": "^16.4.5",
     "puppeteer": "^22.10.0",
-    "stream": "^0.0.2"
+    "stream": "^0.0.2",
+    "@elastic/elasticsearch": "^8.13.1",
+    "mysql2": "^3.10.0",
+    "sequelize": "^6.37.3"
   },
   "description": ""
 }

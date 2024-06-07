@@ -81,7 +81,6 @@ class CrawlService {
         title = null;
       }
       let description = null;
-
       try {
         description = await page.$eval(
           'meta[name="description"]',

@@ -13,7 +13,7 @@ const runService2 = async () => {
     await messagesStream.on("data", async (message) => {
       const data = JSON.parse(message.content.toString());
       console.log(data);
-      const crawlUrls = await crawlData(data);
+      const crawlUrls = await crawlLinks(data);
       crawlUrls.map((url) => {
         RabbitMQ.sendMessageToQueue(queueUrls, url, channel2);
       });
@@ -24,13 +24,20 @@ const runService2 = async () => {
   }
 };
 
-const crawlData = async (data) => {
+const crawlLinks = async (data) => {
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
   await page.goto(data.url, { waitUntil: "load", timeout: 0 });
-  await page.click(".nav-link");
+  await page.evaluate(() => {
+    document.querySelector(".nav-link").click();
+  });
   await page.type("#cdc-mobile-search-form > input", data.keyword);
-  await page.click("#cdc-mobile-search-form > button:nth-child(2)");
+  await page.evaluate(() => {
+    document
+      .querySelector("#cdc-mobile-search-form > button:nth-child(2)")
+      .click();
+  });
+
   const results = [];
   for (let pageNumber = 0; pageNumber < 5; pageNumber++) {
     await page.waitForNavigation({ waitUntil: "load", timeout: 0 });
@@ -47,11 +54,15 @@ const crawlData = async (data) => {
     }
     for (let link of links) {
       const href = await (await link.getProperty("href")).jsonValue();
-      results.push(href);
+      results.push({ url: href, taskId: data.taskId });
     }
-    await page.click(
-      "#results-web > div > div:nth-child(2) > nav > ul > li:nth-child(12) > a"
-    );
+    await page.evaluate(() => {
+      document
+        .querySelector(
+          "#results-web > div > div:nth-child(2) > nav > ul > li:nth-child(12) > a"
+        )
+        .click();
+    });
   }
   await browser.close();
   return results;
