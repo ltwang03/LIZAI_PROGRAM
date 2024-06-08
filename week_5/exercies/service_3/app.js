@@ -29,7 +29,10 @@ const runService3 = async () => {
   }
 };
 const crawlDataFromLinks = async (data) => {
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    executablePath: "/usr/bin/google-chrome",
+  });
   const page = await browser.newPage();
   await page.goto(String(data.url), { waitUntil: "load", timeout: 0 });
   let title = await page.title();

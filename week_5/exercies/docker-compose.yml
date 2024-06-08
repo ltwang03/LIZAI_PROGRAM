@@ -11,3 +11,79 @@ services:
     volumes:
       - ./volume/data:/var/lib/mysql
       - ./volume/logs:/var/log/mysql
+  service_1:
+    build:
+      context: .
+      dockerfile: service_1/Dockerfile
+    working_dir: /usr/src/app/service_1
+    env_file:
+      - .env.prod
+    deploy:
+        replicas: 1
+    volumes:
+      - ./shared:/usr/src/app/shared
+      - ./:/usr/src/app
+    command: node app.js
+  service_2:
+    build:
+      context: .
+      dockerfile: service_2/Dockerfile
+    working_dir: /usr/src/app/service_2
+    env_file:
+      - .env.prod
+    volumes:
+      - ./shared:/usr/src/app/shared
+      - ./:/usr/src/app
+    command: node app.js
+    deploy:
+        replicas: 1
+        restart_policy:
+          condition: on-failure
+  service_3:
+    build:
+      context: .
+      dockerfile: service_3/Dockerfile
+    working_dir: /usr/src/app/service_3
+    env_file:
+      - .env.prod
+    volumes:
+      - ./shared:/usr/src/app/shared
+      - ./:/usr/src/app
+    command: node app.js
+    restart: always
+    deploy:
+        replicas: 2
+        restart_policy:
+            condition: on-failure
+  service_4:
+    build:
+      context: .
+      dockerfile: service_4/Dockerfile
+    working_dir: /usr/src/app/service_4
+    env_file:
+      - .env.prod
+    volumes:
+      - ./shared:/usr/src/app/shared
+      - ./:/usr/src/app
+    command: node app.js
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+  api:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    working_dir: /usr/src/app/api
+    env_file:
+      - .env.prod
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./shared:/usr/src/app/shared
+      - ./:/usr/src/app
+    command: node index.js
+    deploy:
+        replicas: 1
+        restart_policy:
+          condition: on-failure
