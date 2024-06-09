@@ -4,7 +4,7 @@ services:
     image: mysql:8.4.0
     hostname: database
     ports:
-      - "3306:3306"
+      - '3306:3306'
     env_file:
       - .env
     restart: always
@@ -12,19 +12,23 @@ services:
       - ./volume/data:/var/lib/mysql
       - ./volume/logs:/var/log/mysql
   service_1:
+    image: lethanhquang147/service_1:latest
     build:
       context: .
       dockerfile: service_1/Dockerfile
     working_dir: /usr/src/app/service_1
     env_file:
       - .env.prod
-    deploy:
-        replicas: 1
     volumes:
       - ./shared:/usr/src/app/shared
       - ./:/usr/src/app
     command: node app.js
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: none
   service_2:
+    image: lethanhquang147/service_2:latest
     build:
       context: .
       dockerfile: service_2/Dockerfile
@@ -36,10 +40,11 @@ services:
       - ./:/usr/src/app
     command: node app.js
     deploy:
-        replicas: 1
-        restart_policy:
-          condition: on-failure
+      replicas: 1
+      restart_policy:
+        condition: none
   service_3:
+    image: lethanhquang147/service_3:latest
     build:
       context: .
       dockerfile: service_3/Dockerfile
@@ -50,12 +55,12 @@ services:
       - ./shared:/usr/src/app/shared
       - ./:/usr/src/app
     command: node app.js
-    restart: always
     deploy:
-        replicas: 2
-        restart_policy:
-            condition: on-failure
+      replicas: 2
+      restart_policy:
+        condition: none
   service_4:
+    image: lethanhquang147/service_4:latest
     build:
       context: .
       dockerfile: service_4/Dockerfile
@@ -69,8 +74,9 @@ services:
     deploy:
       replicas: 1
       restart_policy:
-        condition: on-failure
+        condition: none
   api:
+    image: lethanhquang147/api:latest
     build:
       context: .
       dockerfile: api/Dockerfile
@@ -78,12 +84,14 @@ services:
     env_file:
       - .env.prod
     ports:
-      - "3000:3000"
+      - '3000:3000'
     volumes:
       - ./shared:/usr/src/app/shared
       - ./:/usr/src/app
     command: node index.js
     deploy:
-        replicas: 1
-        restart_policy:
-          condition: on-failure
+      replicas: 1
+      restart_policy:
+        condition: none
+    depends_on:
+      - database

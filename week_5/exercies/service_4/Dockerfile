@@ -1,4 +1,4 @@
-FROM lethanhquang147/base-image:latest
+FROM lethanhquang147/base-crawl-image:latest
 
 WORKDIR /usr/src/app
 
