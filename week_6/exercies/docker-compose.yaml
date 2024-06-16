@@ -24,3 +24,67 @@ services:
     volumes:
       - ./volume/mysql/data:/var/lib/mysql
       - ./volume/mysql/logs:/var/log/mysql
+  service_1:
+    image: lethanhquang147/base-image-exercies-6:1.0.0
+    working_dir: /usr/src/app
+    env_file:
+      - .env.prod
+    volumes:
+      - ./shared:/usr/src/app/shared
+      - ./:/usr/src/app
+    command: npm run start:service1
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: none
+    depends_on:
+      - rabbitmq
+      - database
+  service_2:
+    image: lethanhquang147/base-image-exercies-6:1.0.0
+    working_dir: /usr/src/app
+    env_file:
+      - .env.prod
+    volumes:
+      - ./shared:/usr/src/app/shared
+      - ./:/usr/src/app
+    command: npm run start:service2
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - rabbitmq
+      - database
+  service_3:
+    image: lethanhquang147/base-image-exercies-6:1.0.0
+    working_dir: /usr/src/app
+    env_file:
+      - .env.prod
+    volumes:
+      - ./shared:/usr/src/app/shared
+      - ./:/usr/src/app
+    command: npm run start:service3
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - rabbitmq
+      - database
+  api:
+    image: lethanhquang147/base-image-exercies-6:1.0.0
+    working_dir: /usr/src/app
+    env_file:
+      - .env.prod
+    volumes:
+      - ./shared:/usr/src/app/shared
+      - ./:/usr/src/app
+    command: npm run start:api
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - rabbitmq
+      - database
