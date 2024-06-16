@@ -16,4 +16,7 @@ module.exports = {
         database: process.env.MYSQL_DATABASE,
         port_db: process.env.MYSQL_PORT,
     },
+    app: {
+        port: process.env.APP_PORT
+    }
 }

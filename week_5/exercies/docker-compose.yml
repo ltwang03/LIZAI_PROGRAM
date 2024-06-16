@@ -7,10 +7,9 @@ services:
       - '3306:3306'
     env_file:
       - .env
-    restart: always
     volumes:
-      - ./volume/data:/var/lib/mysql
-      - ./volume/logs:/var/log/mysql
+      - ./volume/mysql/data:/var/lib/mysql
+      - ./volume/mysql/logs:/var/log/mysql
   service_1:
     image: lethanhquang147/service_1:latest
     build:

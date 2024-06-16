@@ -1,17 +1,17 @@
 [
   {
     "taskId": 1,
-    "url": "https://www.diabetes.org",
+    "url": "https://www.diabetes.org/",
     "keyword": "diabetes"
   },
   {
     "taskId": 2,
-    "url": "https://www.google.com",
+    "url": "https://www.google.com/",
     "keyword": "cancer"
   },
   {
     "taskId": 3,
-    "url": "https://www.kidney.org",
+    "url": "https://www.kidney.org/",
     "keyword": "obesity"
   }
 ]

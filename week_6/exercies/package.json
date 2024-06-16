@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:service1": "node services/service_1/app.js",
     "start:service2": "node services/service_2/app.js",
-    "start:service3": "node services/service_3/app.js"
+    "start:service3": "node services/service_3/app.js",
+    "start:api": "node api/index.js"
   },
   "keywords": [],
   "author": "",

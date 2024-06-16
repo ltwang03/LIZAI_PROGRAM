@@ -1,5 +1,5 @@
-const { Sequelize } = require("sequelize");
-const { database } = require("../../configs/index");
+const {Sequelize} = require("sequelize");
+const {database} = require("../../configs/index");
 
 const sequelize = new Sequelize(
     database.database,
@@ -26,7 +26,7 @@ sequelize
     .catch((error) => {
         console.error("Unable to connect to the database: ", error);
     });
-sequelize.sync({ force: false }).then(() => {
+sequelize.sync({force: false}).then(() => {
     console.log("Database & tables created!");
 });
 
