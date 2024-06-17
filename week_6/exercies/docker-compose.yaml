@@ -25,7 +25,7 @@ services:
       - ./volume/mysql/data:/var/lib/mysql
       - ./volume/mysql/logs:/var/log/mysql
   service_1:
-    image: lethanhquang147/base-image-exercies-6:1.0.0
+    image: lethanhquang147/base-image-exercies-6:4.0.0
     working_dir: /usr/src/app
     env_file:
       - .env.prod
@@ -41,7 +41,7 @@ services:
       - rabbitmq
       - database
   service_2:
-    image: lethanhquang147/base-image-exercies-6:1.0.0
+    image: lethanhquang147/base-image-exercies-6:4.0.0
     working_dir: /usr/src/app
     env_file:
       - .env.prod
@@ -57,7 +57,7 @@ services:
       - rabbitmq
       - database
   service_3:
-    image: lethanhquang147/base-image-exercies-6:1.0.0
+    image: lethanhquang147/base-image-exercies-6:4.0.0
     working_dir: /usr/src/app
     env_file:
       - .env.prod
@@ -73,7 +73,7 @@ services:
       - rabbitmq
       - database
   api:
-    image: lethanhquang147/base-image-exercies-6:1.0.0
+    image: lethanhquang147/base-image-exercies-6:4.0.0
     working_dir: /usr/src/app
     env_file:
       - .env.prod
@@ -81,6 +81,8 @@ services:
       - ./shared:/usr/src/app/shared
       - ./:/usr/src/app
     command: npm run start:api
+    ports:
+      - "3000:3000"
     deploy:
       replicas: 1
       restart_policy:

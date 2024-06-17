@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  database:
+    image: mysql:8.4.0
+    hostname: database
+    container_name: database
+    ports:
+      - "3306:3306"
+    env_file:
+      - .env
+    restart: always
+    volumes:
+      - ./volume/mysql/data:/var/lib/mysql
+      - ./volume/mysql/logs:/var/log/mysql
+  rabbitmq:
+    image: rabbitmq:3.9.7-management-alpine
+    hostname: rabbitmq
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    env_file:
+      - .env
+    restart: always
+    volumes:
+      - ./volume/rabbitmq/data:/var/lib/rabbitmq
+      - ./volume/rabbitmq/logs:/var/log/rabbitmq
