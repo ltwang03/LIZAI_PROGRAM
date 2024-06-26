@@ -29,4 +29,4 @@
 1 case web die
 16 case pass
 rate: 64%
-
+ Vì sử dụng llma bản free nên sẽ còn bị hạn chế là mất context và phải reload, dễ bị nói lệch đi theo hướng của prompt. Nên việc test sẽ chỉ là tương đối.
