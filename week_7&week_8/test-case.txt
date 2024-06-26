@@ -1,0 +1,32 @@
+  "https://usa.gov", //pass
+  "https://www.cdc.gov", //pass
+  "https://diabetes.org", //pass
+  "https://www.kidney.org", //pass
+  "https://scholar.google.com", //pass
+  "https://medlineplus.gov", //fail
+  "https://www.google.com", //pass
+  "https://classic.clinicaltrials.gov", //fail
+  "https://www.drugs.com", //pass
+  "https://www.centerwatch.com", //pass
+  "https://dailymed.nlm.nih.gov", //pass
+  "https://go.drugbank.com", //fail (enter and action button not found)
+  "https://www.epocrates.com", //web die
+  "https://www.everydayhealth.com", //web use javascript render element cannot get
+  "https://www.goodrx.com", //pass
+  "https://medscape.com", //pass
+  "https://www.merckmanuals.com/home.html", //fail (input not has classname, id, name, type)
+  "https://www.pdr.net", //pass
+  "https://www.ema.europa.eu/en", //pass
+  "https://my.clevelandclinic.org/search", // fail cannot load data but input set
+  "https://www.vidal.ru", //pass
+  "https://www.rlsnet.ru", //pass
+  "https://www.hopkinsmedicine.org", // pass
+  "https://vnimanie.pro/search", //fail (input not has classname, id, name, type)
+  "https://www.mp.pl", // fail reload two times
+
+9/25
+8 case fail
+1 case web die
+16 case pass
+rate: 64%
+

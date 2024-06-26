@@ -1,0 +1,213 @@
+Q: Please use the following data to find the input box for me to search. Things not related to the search will not be taken, for example: address, mobile phone, contact,...
+   this is my data:
+[
+  {
+    className: 'search_city',
+    id: null,
+    name: null,
+    type: null,
+    placeholder: 'Nhập tên tỉnh thành...',
+  },
+  {
+    className: 'btn-search txt-search txt-search-header',
+    id: null,
+    name: null,
+    type: null,
+    placeholder: 'Tìm kiếm',
+  },
+  {
+    className: null,
+    id: 'hdZoneHome',
+    name: 'hdZoneHome',
+    type: 'hidden',
+    placeholder: null,
+  },
+  {
+    className: null,
+    id: 'hdZoneId',
+    name: 'hdZoneId',
+    type: 'hidden',
+    placeholder: null,
+  },
+  {
+    className: null,
+    id: 'hdPageIndex',
+    name: 'hdPageIndex',
+    type: 'hidden',
+    placeholder: null,
+  },
+  {
+    className: 'btn-alert-confirm',
+    id: null,
+    name: null,
+    type: 'button',
+    placeholder: null,
+  }
+]
+
+A: if you return result to me then just return JSON Array don't return any more (NO YAPPING, ONLY DATA) Do not take data containing the words name, email, address, mobile, phone, contact ,City, ZipCode, distance, url,... just focus on the input to search
+[
+  {
+    "className": "search_city",
+    "id": null,
+    "name": null,
+    "type": null,
+    "placeholder": "Nhập tên tỉnh thành...",
+  },
+  {
+    "className": "btn-search txt-search txt-search-header",
+    "id": null,
+    "name": null,
+    "type": null,
+    "placeholder": "Tìm kiếm",
+  }
+]
+---------------------------------------
+Q: Please use the following data to find the input box for me to search. Things not related to the search will not be taken, for example: address, mobile phone, contact,...
+this is my data:
+[
+  {
+    className: 'form-text',
+    id: 'edit-query',
+    name: 'query',
+    type: 'text',
+    placeholder: ''
+  },
+  {
+    className: 'form-submit',
+    id: 'edit-inline-search-button',
+    name: 'op',
+    type: 'submit',
+    placeholder: null
+  }
+  {
+    className: null,
+    id: null,
+    name: 'form_build_id',
+    type: 'hidden',
+    placeholder: null
+  },
+  {
+    className: null,
+    id: null,
+    name: 'form_id',
+    type: 'hidden',
+    placeholder: null
+  },
+  {
+    className: 'form-text',
+    id: 'edit-query',
+    name: 'query',
+    type: 'text',
+    placeholder: ''
+  },
+  {
+    className: 'form-submit',
+    id: 'edit-inline-search-button',
+    name: 'op',
+    type: 'submit',
+    placeholder: null
+  },
+  {
+    className: null,
+    id: null,
+    name: 'endpoint',
+    type: 'hidden',
+    placeholder: null
+  },
+  {
+    className: null,
+    id: null,
+    name: 'param',
+    type: 'hidden',
+    placeholder: null
+  },
+  {
+    className: null,
+    id: null,
+    name: 'form_build_id',
+    type: 'hidden',
+    placeholder: null
+  },
+  {
+    className: null,
+    id: null,
+    name: 'form_id',
+    type: 'hidden',
+    placeholder: null
+  },
+  {
+    className: 'geofield-proximity-origin form-text',
+    id: 'edit-field-geofield-distance-origin',
+    name: 'field_geofield_distance[origin]',
+    type: 'text',
+    placeholder: 'City, State or Zip Code'
+  },
+  {
+    className: 'form-text',
+    id: 'edit-field-geofield-distance-distance',
+    name: 'field_geofield_distance[distance]',
+    type: 'text',
+    placeholder: null
+  },
+  {
+    className: 'form-submit',
+    id: 'edit-submit-locations',
+    name: null,
+    type: 'submit',
+    placeholder: null
+  },
+  {
+    className: 'width--100 webform-hints-field form-text required',
+    id: 'edit-submitted-first-name',
+    name: 'submitted[first_name]',
+    type: 'text',
+    placeholder: 'First Name'
+  },
+  {
+    className: 'width--100 webform-hints-field form-text required',
+    id: 'edit-submitted-last-name',
+    name: 'submitted[last_name]',
+    type: 'text',
+    placeholder: 'Last Name'
+  },
+  {
+    className: 'email webform-hints-field form-text form-email required',
+    id: 'edit-submitted-email',
+    name: 'submitted[email]',
+    type: 'email',
+    placeholder: 'Email'
+  },
+  {
+    className: 'form-text',
+    id: 'edit-url',
+    name: 'url',
+    type: 'text',
+    placeholder: null
+  },
+  {
+    className: 'webform-submit button-primary form-submit',
+    id: null,
+    name: 'op',
+    type: 'submit',
+    placeholder: null
+  }
+]
+
+
+A: if you return result to me then just return JSON Array don't return any more (NO YAPPING, ONLY DATA). Do not take data containing the words name, email, address, mobile, phone, contact ,City, ZipCode, distance,... just focus on the input to search
+[
+  {
+    className: 'form-text',
+    id: 'edit-query',
+    name: 'query',
+    type: 'text',
+    placeholder: ''
+  },
+]
+
+
+Q: based on the example above Please use the following data to find the input box for me to search. Things not related to the search will not be taken, for example: address, mobile phone, contact,...
+A: if you return result to me then just return JSON Array don't return any more (NO YAPPING, ONLY DATA). Do not take data containing the words name, email, address, mobile, phone, contact ,City, ZipCode, distance,... just focus on the input to search
+this is my data:
+
