@@ -149,4 +149,4 @@ async function autoSearch(url, keyword) {
     })
 }
 
-autoSearch('https://www.mp.pl', 'cancer')
+autoSearch('https://www.kidney.org', 'cancer')
