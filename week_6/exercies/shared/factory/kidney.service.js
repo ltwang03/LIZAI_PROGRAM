@@ -27,7 +27,10 @@ class KidneyService {
 }
 
 const getDataFromKidneySite = async (taskId, url, keyword, lastPage = 0) => {
-    const browser = await puppeteer.launch({headless: true});
+    const browser = await puppeteer.launch({
+        args: ["--no-sandbox", "--disable-setuid-sandbox"],
+        executablePath: "/usr/bin/google-chrome",
+    });
     const page = await browser.newPage();
     await page.goto(`${url}search-results?solr-keywords=${keyword}&page=${lastPage}`);
     const startTime = Date.now();

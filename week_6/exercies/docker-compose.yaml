@@ -13,7 +13,7 @@ services:
       - ./volume/rabbitmq/data:/var/lib/rabbitmq
       - ./volume/rabbitmq/logs:/var/log/rabbitmq
   database:
-    container_name: database-mysql
+    container_name: database
     image: mysql:8.4.0
     hostname: database
     ports:
@@ -25,7 +25,8 @@ services:
       - ./volume/mysql/data:/var/lib/mysql
       - ./volume/mysql/logs:/var/log/mysql
   service_1:
-    image: lethanhquang147/base-image-exercies-6:4.0.0
+    image: lethanhquang147/base-image-exercies-6:5.0.0
+    container_name: service_1
     working_dir: /usr/src/app
     env_file:
       - .env.prod
@@ -41,7 +42,8 @@ services:
       - rabbitmq
       - database
   service_2:
-    image: lethanhquang147/base-image-exercies-6:4.0.0
+    image: lethanhquang147/base-image-exercies-6:5.0.0
+    container_name: service_2
     working_dir: /usr/src/app
     env_file:
       - .env.prod
@@ -57,7 +59,8 @@ services:
       - rabbitmq
       - database
   service_3:
-    image: lethanhquang147/base-image-exercies-6:4.0.0
+    image: lethanhquang147/base-image-exercies-6:5.0.0
+    container_name: service_3
     working_dir: /usr/src/app
     env_file:
       - .env.prod
@@ -73,7 +76,8 @@ services:
       - rabbitmq
       - database
   api:
-    image: lethanhquang147/base-image-exercies-6:4.0.0
+    image: lethanhquang147/base-image-exercies-6:5.0.0
+    container_name: api
     working_dir: /usr/src/app
     env_file:
       - .env.prod

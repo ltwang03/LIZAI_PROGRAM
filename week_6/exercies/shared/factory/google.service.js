@@ -27,7 +27,10 @@ class GoogleService {
 }
 
 const getGoogleData = async (taskId, url, keyword, lastPage) => {
-    const browser = await puppeteer.launch({headless: true});
+    const browser = await puppeteer.launch({
+        args: ["--no-sandbox", "--disable-setuid-sandbox"],
+        executablePath: "/usr/bin/google-chrome",
+    });
     const page = await browser.newPage();
     await page.goto(url)
     const boxSearch = await page.$("#APjFqb")

@@ -1,4 +1,4 @@
-FROM node:slim
+FROM node:20
 # install pupeteer
 WORKDIR /usr/src/app
 

@@ -118,7 +118,10 @@ const runService3 = async () => {
 runService3()
 
 const getInfoFromAnyLink = async (taskId, url, level) => {
-    const browser = await puppeteer.launch({headless: true});
+    const browser = await puppeteer.launch({
+        args: ["--no-sandbox", "--disable-setuid-sandbox"],
+        executablePath: "/usr/bin/google-chrome",
+    });
     const page = await browser.newPage();
     try {
         await page.goto(String(url), {waitUntil: "load", timeout: 0});

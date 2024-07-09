@@ -31,7 +31,10 @@ class DiabetesService {
 }
 
 const CrawlData = async (taskId, url, keyword, lastPage) => {
-    const browser = await puppeteer.launch({headless: true});
+    const browser = await puppeteer.launch({
+        args: ["--no-sandbox", "--disable-setuid-sandbox"],
+        executablePath: "/usr/bin/google-chrome",
+    });
     const page = await browser.newPage();
     await page.goto(`${url}search?keywords=${keyword}&page=${lastPage}`, {waitUntil: "load", timeout: 0});
     await page.setViewport({width: 1200, height: 600});
