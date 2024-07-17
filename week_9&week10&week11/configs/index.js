@@ -13,6 +13,14 @@ module.exports = {
     },
     rabbitmq: {
         host: process.env.RABBITMQ_HOST
+    },
+    elastic: {
+        cloud_id: process.env.ELASTIC_CLOUD_ID,
+        username: process.env.ELASTIC_USERNAME,
+        password: process.env.ELASTIC_PASSWORD,
+    },
+    groqAI: {
+        api_key: process.env.GROQ_API_KEY
     }
 
 }

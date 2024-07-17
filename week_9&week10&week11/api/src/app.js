@@ -3,9 +3,6 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const app = express();
 
-const Rabbitmq = require("../../shared/rabbitmq/rabbitmq")
-const Sequelize = require("../../shared/database/database.connect")
-
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 

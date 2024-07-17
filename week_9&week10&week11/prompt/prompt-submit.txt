@@ -1,0 +1,110 @@
+Q: Please use the following data to find the button for me to submit query search.
+   this is my data:
+    [
+      {
+        "className": 'icon icon--search icon--before',
+        "id": null,
+        "name": null,
+        "type": null,
+        "text": '\n' +
+          '                        Eingabefenster für die Suche\n' +
+          '                    '
+      },
+      {
+        "className": 'icon icon--close icon--after search-reset',
+        "id": null,
+        "name": null,
+        "type": null,
+        "text": ''
+      },
+      {
+        "className": 'yamm-close-bottom',
+        "id": null,
+        "name": null,
+        "type": null,
+        "text": '\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t'
+      },
+      {
+        "className": 'icon icon--search icon--before',
+        "id": null,
+        "name": null,
+        "type": null,
+        "text": '\n                    Eingabefenster für die Suche\n                '
+      },
+      {
+        className: 'yamm-close btn btn-link icon icon--after icon--close pull-right',
+        "id": null,
+        "name": null,
+        "type": null,
+        "text": 'Schliessen'
+      },
+      {
+        className: 'yamm-close-bottom',
+        "id": null,
+        "name": null,
+        "type": null,
+        "text": ''
+      }
+    ]
+A: if you return result to me then just return JSON Array don't return any more (NO YAPPING, ONLY DATA)  Do not take data containing the words email, address, mobile, phone, location, distance, contact,... just focus on the submit to search
+[
+  {
+     "className": 'icon icon--search icon--before',
+     "id": null,
+     "name": null,
+     "type": null,
+     "text": '\n' +
+            '                        Eingabefenster für die Suche\n' +
+            '                    '
+  },
+]
+---------------------------------------
+Q: Please use the following data to find the button for me to submit query search.
+this is my data:
+[
+  {
+    "className": 'search-icon',
+    "id": null,
+    "name": null,
+    "type": null,
+    "text": ''
+  },
+  {
+    "className": 'hamburger-icon text-gray-500 w-8 h-8 relative focus:outline-none bg-white',
+    "id": null,
+    "name": null,
+    "type": null,
+    "text": '\n  Open main menu\n  \n    \n    \n    \n  \n'
+  },
+  {
+    "className": 'close-btn',
+    "id": null,
+    "name": null,
+    "type": 'button',
+    "text": '\n\t\t\t\n\n\n    \n\n\t\t'
+  },
+  {
+    "className": 'slick-prev slick-arrow slick-disabled',
+    "id": null,
+    "name": null,
+    "type": 'button',
+    "text": 'Previous'
+  },
+]
+
+A: if you return result to me then just return JSON Array don't return any more (NO YAPPING, ONLY DATA). Do not take data containing the words email, address, mobile, phone, location, distance, contact,... just focus on the submit to search
+[
+  {
+      "className": 'search-icon',
+      "id": null,
+      "name": null,
+      "type": null,
+      "text": ''
+    },
+]
+
+
+Q: based on the example above Q: Please use the following data to find the button for me to submit query search.
+A: if you return result to me then just return JSON Array don't return any more (NO YAPPING, ONLY DATA). Do not take data containing the words email, address, mobile, phone, location, info, distance, contact, Sign Up, Sign In... just focus on the submit to search
+this is my data:
+

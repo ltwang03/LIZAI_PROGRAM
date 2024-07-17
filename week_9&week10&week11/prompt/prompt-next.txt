@@ -1,0 +1,134 @@
+Q: You are an element identifier to move to the next page or load more. I will give you a json array for you as input and your task is to choose an element to move to the next page or load element, the answer is not vague. only returns 1 object
+[
+  {
+    url: 'https://search.cdc.gov/search/?query=cancer&dpage=1#results-web',
+    text: 'Previous',
+    className: 'page-link',
+    selector: '#results-web > div.results.webResults > div:nth-of-type(2) > nav.nav.d-flex.justify-content-center > ul.pagination > li.page-item.disabled:nth-of-type(1) > a.page-link',
+    title: ''
+  },
+  {
+    url: 'https://search.cdc.gov/search/?query=cancer&dpage=1#results-web',
+    text: '1',
+    className: 'page-link',
+    selector: '#results-web > div.results.webResults > div:nth-of-type(2) > nav.nav.d-flex.justify-content-center > ul.pagination > li.page-item.page-num:nth-of-type(2) > a.page-link',
+    title: ''
+  },
+  {
+    url: 'https://search.cdc.gov/search/?query=cancer&dpage=1#results-web',
+    text: '2',
+    className: 'page-link',
+    selector: '#results-web > div.results.webResults > div:nth-of-type(2) > nav.nav.d-flex.justify-content-center > ul.pagination > li.page-item.page-num:nth-of-type(3) > a.page-link',
+    title: ''
+  },
+  {
+    url: 'https://search.cdc.gov/search/?query=cancer&dpage=1#results-web',
+    text: '3',
+    className: 'page-link',
+    selector: '#results-web > div.results.webResults > div:nth-of-type(2) > nav.nav.d-flex.justify-content-center > ul.pagination > li.page-item.page-num:nth-of-type(4) > a.page-link',
+    title: ''
+  },
+  {
+    url: 'https://search.cdc.gov/search/?query=cancer&dpage=1#results-web',
+    text: '4',
+    className: 'page-link',
+    selector: '#results-web > div.results.webResults > div:nth-of-type(2) > nav.nav.d-flex.justify-content-center > ul.pagination > li.page-item.page-num:nth-of-type(5) > a.page-link',
+    title: ''
+  },
+  {
+    url: 'https://search.cdc.gov/search/?query=cancer&dpage=1#results-web',
+    text: '5',
+    className: 'page-link',
+    selector: '#results-web > div.results.webResults > div:nth-of-type(2) > nav.nav.d-flex.justify-content-center > ul.pagination > li.page-item.page-num:nth-of-type(6) > a.page-link',
+    title: ''
+  },
+  {
+    url: 'https://search.cdc.gov/search/?query=cancer&dpage=1#results-web',
+    text: '6',
+    className: 'page-link',
+    selector: '#results-web > div.results.webResults > div:nth-of-type(2) > nav.nav.d-flex.justify-content-center > ul.pagination > li.page-item.page-num:nth-of-type(7) > a.page-link',
+    title: ''
+  },
+  {
+    url: 'https://search.cdc.gov/search/?query=cancer&dpage=1#results-web',
+    text: '7',
+    className: 'page-link',
+    selector: '#results-web > div.results.webResults > div:nth-of-type(2) > nav.nav.d-flex.justify-content-center > ul.pagination > li.page-item.page-num:nth-of-type(8) > a.page-link',
+    title: ''
+  },
+  {
+    url: 'https://search.cdc.gov/search/?query=cancer&dpage=1#results-web',
+    text: '8',
+    className: 'page-link',
+    selector: '#results-web > div.results.webResults > div:nth-of-type(2) > nav.nav.d-flex.justify-content-center > ul.pagination > li.page-item.page-num:nth-of-type(9) > a.page-link',
+    title: ''
+  },
+  {
+    url: 'https://search.cdc.gov/search/?query=cancer&dpage=1#results-web',
+    text: '9',
+    className: 'page-link',
+    selector: '#results-web > div.results.webResults > div:nth-of-type(2) > nav.nav.d-flex.justify-content-center > ul.pagination > li.page-item.page-num:nth-of-type(10) > a.page-link',
+    title: ''
+  },
+  {
+    url: 'https://search.cdc.gov/search/?query=cancer&dpage=1#results-web',
+    text: '10',
+    className: 'page-link',
+    selector: '#results-web > div.results.webResults > div:nth-of-type(2) > nav.nav.d-flex.justify-content-center > ul.pagination > li.page-item.page-num:nth-of-type(11) > a.page-link',
+    title: ''
+  },
+  {
+    url: 'https://search.cdc.gov/search/?query=cancer&dpage=1#results-web',
+    text: 'Next',
+    className: 'page-link',
+    selector: '#results-web > div.results.webResults > div:nth-of-type(2) > nav.nav.d-flex.justify-content-center > ul.pagination > li.page-item:nth-of-type(12) > a.page-link',
+    title: ''
+  },
+  {
+    url: 'https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.cdc.gov%2Fsearch%2Findex.html',
+    text: 'Facebook',
+    className: 'page-share-facebook metrics-share-facebook',
+    selector: '#share-nav > ul > li:nth-of-type(1) > a.page-share-facebook.metrics-share-facebook',
+    title: 'Share to Facebook'
+  },
+  {
+    url: 'http://twitter.com/share?url=https%3A%2F%2Fwww.cdc.gov%2Fsearch%2Findex.html&text=Search%20Results',
+    text: 'Twitter',
+    className: 'page-share-twitter metrics-share-twitter',
+    selector: '#share-nav > ul > li:nth-of-type(2) > a.page-share-twitter.metrics-share-twitter',
+    title: 'Share to Twitter'
+  },
+]
+A: just return JSON
+  {
+       "url": "https://search.cdc.gov/search/?query=cancer&dpage=1#results-web",
+       "text": "Next",
+       "className": "page-link",
+       "selector": "#results-web > div.results.webResults > div:nth-of-type(2) > nav.nav.d-flex.justify-content-center > ul.pagination > li.page-item:nth-of-type(12) > a.page-link",
+       "title": ""
+       "tag": "next"
+  },
+
+Q: You are an element identifier to move to the next page or load more. I will give you a json array for you as input and your task is to choose an element to move to the next page or load element, the answer is not vague. only returns 1 object
+[
+  {
+    url: 'https://diabetes.org/search?keywords=cancer&page=1',
+    text: 'Load More',
+    className: 'button',
+    selector: 'div.dialog-off-canvas-main-canvas.flex.flex-col.flex-1:nth-of-type(1) > main.main-content.flex-1 > div.views-element-container:nth-of-type(2) > div.search-view > ul.pager > li.pager__item > a.button',
+    title: 'Load more items'
+  }
+]
+A: just return JSON
+  {
+       "url": "https://diabetes.org/search?keywords=cancer&page=1",
+       "text": "Load More",
+       "className": "button",
+       "selector": "div.dialog-off-canvas-main-canvas.flex.flex-col.flex-1:nth-of-type(1) > main.main-content.flex-1 > div.views-element-container:nth-of-type(2) > div.search-view > ul.pager > li.pager__item > a.button",
+       "title": "Load more items"
+       "tag": "load-more"
+  },
+
+Q: Please use the example above to answer me correctly, You are an element identifier to move to the next page or load more. I will give you a json array for you as input and your task is to choose an element to move to the next page or load element, the answer is not vague. only returns 1 object
+A: just return JSON No Yapping
+this is data
