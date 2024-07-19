@@ -92,7 +92,7 @@ this is my data:
   },
 ]
 
-A: if you return result to me then just return JSON Array don't return any more (NO YAPPING, ONLY DATA). Do not take data containing the words email, address, mobile, phone, location, distance, contact,... just focus on the submit to search
+A: if you return result to me then just return JSON Array don't return any more (NO YAPPING, ONLY DATA). Do not take data containing the words email, address, mobile, phone, location, distance, contact, register, signIn, signUp... just focus on the submit to search
 [
   {
       "className": 'search-icon',

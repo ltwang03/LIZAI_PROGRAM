@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node --watch api/index.js",
-    "service:auto": "node --watch services/factory.js"
+    "service:auto": "node --watch services/factory.js",
+    "service:crawl": "node --watch services/crawl.service.js"
   },
   "author": "",
   "license": "ISC",

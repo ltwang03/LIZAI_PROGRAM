@@ -4,6 +4,7 @@ const puppeteer = require('puppeteer');
 const rabbitmq = require("../shared/rabbitmq/rabbitmq")
 const SitesRepository = require("../shared/database/repositories/sites.repository")
 const CrawlStatusRepository = require("../shared/database/repositories/crawlStatus.repository")
+const url = require('node:url');
 
 async function autoSearch(url, keyword) {
     const browser = await puppeteer.launch({headless: false, defaultViewport: null})
@@ -125,58 +126,68 @@ async function autoSearch(url, keyword) {
     } else {
         processedDataSubmit = getSite.element_submit
     }
-    await page.keyboard.press('Enter');
+    console.log("submit", processedDataSubmit)
+    await page.keyboard.press("Enter")
     processedDataSubmit.map(async (element) => {
+        let submitButton = false;
         if (element.id) {
             try {
                 const id = element.id
-                return await page.evaluate((id) => {
-                    document.querySelectorAll("#" + id).forEach(input => {
+                await page.evaluate((id) => {
+                    document.querySelector("#" + id).forEach(input => {
                         input.click()
                     })
+                    submitButton = true
                 }, id)
             } catch (e) {
+                submitButton = false
             }
-        } else if (element.className) {
+        }
+        if (submitButton === false && element.className) {
             try {
                 const convertClassName = element.className.split(' ').join('.')
-                return await page.evaluate((convertClassName) => {
+                await page.evaluate((convertClassName) => {
                     const input = document.querySelector("." + convertClassName)
                     input.click()
                 }, convertClassName, keyword)
+                submitButton = true
             } catch (e) {
+                submitButton = false
             }
-        } else if (element.name) {
+        }
+        if (submitButton === false && element.name) {
             try {
                 const name = element.name
-                return await page.evaluate((name) => {
+                await page.evaluate((name) => {
                     document.querySelector(`[name=${name}]`).forEach(input => {
                         input.click()
                     })
                 }, name)
+                submitButton = true
             } catch (e) {
+                submitButton = false
             }
-        } else if (element.type === 'submit') {
+        }
+        if (submitButton === false && element.type === 'submit') {
             try {
-                return await page.evaluate(() => {
+                await page.evaluate(() => {
                     document.querySelectorAll('button[type=submit]').forEach(input => {
                         input.click()
                     })
                 })
+                submitButton = true
             } catch (e) {
+                submitButton = false
             }
         }
     })
+    await delay(page, 2000)
     await page.keyboard.press('Enter');
-    try {
-        await page.waitForNavigation({timeout: 20000})
-    } catch (e) {
-        await browser.close()
-        return
-    }
-    await page.evaluate(async () => {
-        window.scrollTo(0, document.body.scrollHeight);
-    })
+
+    //
+    // await page.evaluate(async () => {
+    //     window.scrollTo(0, document.body.scrollHeight);
+    // })
     let processedDataNextButton;
     if (!getSite.element_next) {
         const dataLinks = []
@@ -199,9 +210,11 @@ async function autoSearch(url, keyword) {
     }
     console.log("next", processedDataNextButton)
     let paging = 0
+    let resultsLink = []
     if (processedDataNextButton.tag === 'load-more') {
         const startTime = Date.now();
-        const minutes = 10 * 1000;
+        const minutes = 30 * 1000;
+        await page.waitForNavigation({waitUntil: 'networkidle0'})
         while (Date.now() - startTime < minutes) {
             let loadMoreButton = null;
             if (processedDataNextButton.selector) {
@@ -211,27 +224,32 @@ async function autoSearch(url, keyword) {
                 break;
             }
             await loadMoreButton.click()
-            await delay(page, 1000)
+            await delay(page, 2000)
             paging++
         }
         await CrawlStatusRepository.updateCrawlStatus(getSite.id, keyword, {page: paging})
+        const divResult = await filteredDivAndGetLink(page);
+        resultsLink.push(...divResult)
     }
+    await delay(page, 2000)
     if (processedDataNextButton.tag === 'next') {
+        const status = getStatusCrawlStatus.status;
+        if (status === true && getStatusCrawlStatus.page !== 0) {
+            for (let i = 0; i < getStatusCrawlStatus.page; i++) {
+                await delay(page, 1000)
+                let nextButton = null;
+                nextButton = await clickNext(page, processedDataNextButton, nextButton)
+                await nextButton.click();
+                await page.waitForNavigation({waitUntil: 'load'})
+            }
+        }
+
         try {
             const startTime = Date.now();
-            const minutes = 30 * 1000;
+            const minutes = 2 * 60 * 1000;
             const previousUrls = new Set();
             previousUrls.add(page.url());
             let isStuck = false;
-            const status = getStatusCrawlStatus.status;
-            if (status === true && getStatusCrawlStatus.page !== 0) {
-                for (let i = 0; i < getStatusCrawlStatus.page; i++) {
-                    let nextButton = null;
-                    nextButton = await clickNext(page, processedDataNextButton, nextButton)
-                    await nextButton.click();
-                    await page.waitForNavigation({waitUntil: "load", timeout: 0});
-                }
-            }
             while (Date.now() - startTime < minutes) {
                 let nextButton = null;
                 nextButton = await clickNext(page, processedDataNextButton, nextButton)
@@ -241,7 +259,10 @@ async function autoSearch(url, keyword) {
                 }
                 await delay(page, 1000)
                 await nextButton.click();
-                await page.waitForNavigation({waitUntil: "load", timeout: 0});
+                try {
+                    await page.waitForNavigation({waitUntil: 'load'});
+                } catch (e) {
+                }
                 const currentUrl = page.url();
                 console.log(currentUrl)
                 if (previousUrls.has(currentUrl)) {
@@ -252,6 +273,8 @@ async function autoSearch(url, keyword) {
                     previousUrls.add(currentUrl);
                 }
                 paging++
+                const divResult = await filteredDivAndGetLink(page);
+                resultsLink.push(...divResult)
                 await CrawlStatusRepository.updateStatusCrawlStatus(getSite.id, keyword, true)
             }
             if (isStuck) {
@@ -261,31 +284,81 @@ async function autoSearch(url, keyword) {
                 await CrawlStatusRepository.updateCrawlStatus(getSite.id, keyword, {page: currentPageInDb + paging})
             }
         } catch (error) {
+            console.log(error)
         }
     }
-
-
+    const queueUrls = "urls"
+    const connection = await rabbitmq.connectRabbitMQ()
+    const channel = await rabbitmq.createQueue(queueUrls, connection)
+    const results = await uniqueLinks(resultsLink);
+    const validResults = await filterValidLinks(results);
+    validResults.map(async (link) => {
+        const data = {crawlStatusId: getStatusCrawlStatus.id, url: link.href, keyword}
+        await rabbitmq.sendMessageToQueue(queueUrls, data, channel)
+    })
     await browser.close()
-
-    // const listDiv = []
-    // for (const div of divInBody) {
-    //     const className = await (await div.getProperty("className")).jsonValue();
-    //     listDiv.push({className})
-    // }
-    // const filteredDiv = listDiv.filter(obj => {
-    //     const className = obj.className;
-    //     return className.trim() !== '' && !className.includes('hidden') && !className.includes('header') && !className.includes('footer') && !className.includes('hide') && !className.includes('target') && !className.includes('display') && !className.includes('nav') && !className.includes('menu');
-    // });
-    // console.log(filteredDiv)
-
-
 }
 
-const clickNext = async (page, processedDataNextButton, nextButton) => {
-    if (processedDataNextButton.selector) {
-        nextButton = await page.$(processedDataNextButton.selector);
+const filteredDivAndGetLink = async (page) => {
+    const allDiv = await page.$$("div, li");
+    const excludedClasses = ['hidden', 'header', 'footer', 'hide', 'target', 'display', 'nav', 'menu', "control", "qs", "tab", "collapse", "container", "share", "pane", "pager", "non", "region"];
+
+    const filteredDivInBody = [];
+    for (const div of allDiv) {
+        const className = await (await div.getProperty("className")).jsonValue();
+        const hasAnchorTag = await page.evaluate(el => el.querySelector('a') !== null, div);
+        const hasNoNumbers = !/\d/.test(className.trim()); // Kiểm tra xem KHÔNG có số
+        if (className.trim() !== '' && !excludedClasses.some(cls => className.includes(cls)) && hasAnchorTag && hasNoNumbers) {
+            filteredDivInBody.push({className});
+        }
     }
-    if (!nextButton && processedDataNextButton.text) {
+    const divResult = await removeDuplicateDivs(filteredDivInBody);
+
+    return await queryClassNameAndGetLink(page, divResult);
+};
+const queryClassNameAndGetLink = async (page, divs) => {
+    const links = [];
+    const formatClassDiv = (className) => {
+        return className.split(' ').join('.');
+    }
+    for (let div of divs) {
+        const className = div.className.trim();
+        const formattedClassName = formatClassDiv(className);
+        const selector = `.${formattedClassName} a`;
+        const anchorTags = await page.$$(selector);
+        for (const anchorTag of anchorTags) {
+            const href = await (await anchorTag.getProperty("href")).jsonValue();
+            links.push({className, href});
+        }
+    }
+    return await uniqueLinks(links)
+}
+const uniqueLinks = async (links) => {
+    const uniqueLinks = [];
+    const seenLinks = new Set();
+    for (const link of links) {
+        if (!seenLinks.has(link.href)) {
+            seenLinks.add(link.href);
+            uniqueLinks.push(link);
+        }
+    }
+    return uniqueLinks;
+}
+const removeDuplicateDivs = async (filteredDivs) => {
+    const uniqueDivs = [];
+    const seenClassNames = new Set();
+
+    for (const div of filteredDivs) {
+        const className = div.className.trim();
+        if (!seenClassNames.has(className)) {
+            uniqueDivs.push(div);
+            seenClassNames.add(className);
+        }
+    }
+    return uniqueDivs;
+}
+const clickNext = async (page, processedDataNextButton, nextButton) => {
+    if (processedDataNextButton.text) {
         const elements = await page.$$("a, button");
         for (const element of elements) {
             const text = await element.getProperty("innerText"); // Lấy textContent
@@ -295,13 +368,20 @@ const clickNext = async (page, processedDataNextButton, nextButton) => {
             }
         }
     }
+    if (!nextButton && processedDataNextButton.selector) {
+        try {
+            nextButton = await page.$(processedDataNextButton.selector);
+        } catch (e) {
+
+        }
+    }
     if (!nextButton && processedDataNextButton.className) {
         const formattedClassName = processedDataNextButton.className.split(' ').join('.');
+        console.log(formattedClassName)
         nextButton = await page.$(`.${formattedClassName}`);
     }
     return nextButton
 }
-
 const getSelector = async (page, element) => {
     const selector = await page.evaluate((element) => {
         if (!element) return null;
@@ -341,7 +421,6 @@ const getSelector = async (page, element) => {
     }, element);
     return selector;
 };
-
 const identifyButtons = (dataArray) => {
     return dataArray.filter(item => {
         // Kiểm tra text
@@ -368,11 +447,29 @@ const identifyButtons = (dataArray) => {
     });
 }
 const delay = async (page, time) => {
-    await page.evaluate(async (time) => {
-        await new Promise(function (resolve) {
-            setTimeout(resolve, time)
-        });
-    }, time)
+    try {
+        await page.evaluate(async (time) => {
+            await new Promise(function (resolve) {
+                setTimeout(resolve, time)
+            });
+        }, time)
+    } catch (e) {
+
+    }
+}
+const filterValidLinks = async (results) => {
+    return results.filter(result => {
+        try {
+            const infoLink = url.parse(result.href);
+            if (infoLink.protocol === "http:" || infoLink.protocol === "https:") {
+                return true;
+            } else {
+                return false
+            }
+        } catch (e) {
+            return false;
+        }
+    });
 }
 
 module.exports = {autoSearch}
